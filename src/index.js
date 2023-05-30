@@ -2,9 +2,21 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from 'components/App';
 import './index.css';
+import { ThemeProvider } from '@emotion/react';
+import {store, persistor} from ".redux/store"
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+// import { Provider } from 'react-redux';
+// import store from 'redux/store';
+
+ReactDOM.render(
   <React.StrictMode>
+    <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
+    <ThemeProvider theme={theme}>
     <App />
-  </React.StrictMode>
+    </ThemeProvider>
+    </PersistGate>
+    </Provider>
+  </React.StrictMode >,
+  document.getElementById("root")
 );

@@ -1,60 +1,36 @@
-// import { configureStore, createSlice } from '@reduxjs/toolkit';
-// import storage from "redux-persist/lib/storage";
-// import {
-//   persistStore,
-//   persistReducer,
-//   FLUSH,
-//   REHYDRATE,
-//   PAUSE,
-//   PERSIST,
-//   PURGE,
-//   REGISTER,
-// } from 'redux-persist';
-// import contactsReducer from './ContactForm/contactsSlice';  ?
-// import filterReducer from './Filter/filterSlice'; ?
-
-// 
+import { configureStore } from '@reduxjs/toolkit';
+import {
+  persistStore,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from 'redux-persist';
+import { persistedFilterReducer } from './filterSlice';
+import { persistedContactsReducer } from './contactSlice';
 
 
+const rootReducer = {
+  contacts: persistedContactsReducer,
+  filter: persistedFilterReducer,
+};
 
+const store = configureStore({
+  reducer: rootReducer,
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
+});
 
-// const rootReducer = {
-//   contacts: contactsReducer,
-//   filter: filterReducer,
-// };
+const persistor = persistStore(store);
 
-// 
-
-// const store = configureStore({
-//   reducer: persistedReducer,
-//   middleware: getDefaultMiddleware =>
-//     getDefaultMiddleware({
-//       serializableCheck: {
-//         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-//       },
-//     }),
-// });
-
-// const persistor = persistStore(store);
-
-
-// export const store = configureStore({
-//     reducer: {
-//  contacts: contactsSlice.reducer,
-//     filter: filterSlice.reducer, перенести вверх?
-//   },
-// });
+ export { store, persistor };
 
 
 
-//  export { store, persistor };
 
-
-
-// или как  лучше експорт сделать?
-
-//  export default () => {
-//     let store = createStore(persistedReducer);
-//     let persistor = persistStore(store);
-//     return { store, persistor };
-// }

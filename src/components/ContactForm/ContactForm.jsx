@@ -26,7 +26,7 @@ const ContactForm = ({ onSubmit, title }) => {
   return (
     <StyledForm onSubmit={handleSubmit}>
       <h1 className="form-title">{title}</h1>
-      <label htmlFor="" className="form-label">
+      <label className="form-label">
         <span className="form-span">Name:</span>
         <input
           className="form-input"
@@ -39,7 +39,7 @@ const ContactForm = ({ onSubmit, title }) => {
           onChange={handleChange}
         />
       </label>
-      <label htmlFor="" className="form-label">
+      <label className="form-label">
         <span className="form-span">Number:</span>
         <input
           className="form-input"
